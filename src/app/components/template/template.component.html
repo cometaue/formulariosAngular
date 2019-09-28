@@ -1,1 +1,74 @@
-<p>template works!</p>
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form (ngSubmit)='send(form)' #form="ngForm">
+
+  <div>
+<p class="border border"></p>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-9">
+        <div class="input-group">
+       <input [ngClass]="{'border border-danger':form.controls['nombre']?.invalid &&                           form.controls['nombre'].touched,
+                           'border border-success':form.controls['nombre']?.valid &&        form.controls['nombre'].touched}"
+               class="form-control"
+               type="text"
+               placeholder="Nombre"
+               name="nombre"
+               [(ngModel)]="dato.nombre"
+               required
+               minlength="5"
+               #nombre="ngModel"> <i [ngClass]="nombre.valid ? 'fas fa-check ml-2 mt-2 text-success':'fas fa-times ml-2 mt-2 text-danger'"></i>
+              </div>
+        <p *ngIf="!!nombre.errors?.minlength" class="text-danger">
+                Se requiere almenos {{nombre.errors['minlength'].requiredLength}} caracteres
+        </p>
+
+        <p *ngIf="!!nombre.errors?.required" class="text-danger">
+          Este campo es obligatorio
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-9">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Apellido"
+               name="apellido"
+               [(ngModel)]="dato.apellido"
+               required
+               minlength="5">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-md-8">
+
+      <input class="form-control"
+             type="email"
+             placeholder="Correo electrónico"
+             name="email"
+             [(ngModel)]="dato.email"
+             required
+             pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/">
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
