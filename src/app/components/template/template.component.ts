@@ -12,9 +12,9 @@ export class TemplateComponent  {
 
   constructor() {
     this.dato = {
-    nombre : 'andres',
-    apellido : 'Obando',
-    email : 'cometaue@gmail.com'
+    nombre : '',
+    apellido : '',
+    email : undefined
     };
 
   }
