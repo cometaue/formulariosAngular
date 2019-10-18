@@ -69,7 +69,7 @@
     <label class="col-2 col-form-label">Pais</label>
     <div class="col-6">
       <select [ngClass]="{'border border-success':pais.valid && pais.dirty,                                           'border border-danger':pais.invalid && pais.touched}"
-              class="form-control"
+              class="custom-select"
               required
               [(ngModel)]="dato.pais"
               name="pais"
@@ -83,6 +83,36 @@
       </p>
     </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Sexo</label>
+    <div class="col-6">
+
+        <div *ngFor="let s of sexos"
+             class="custom-control custom-radio">
+            <input [(ngModel)]="dato.sexo"
+                   type="radio"  [id]="s" name="sexo" class="custom-control-input" [value]="s"
+                   required>
+            <label class="custom-control-label" [for]="s">{{s}}</label>
+        </div>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+      <label class="col-2 col-form-label">Terminos y Condiciones</label>
+      <div class="col-6">
+
+          <div class="custom-control custom-checkbox">
+              <input [(ngModel)]="dato.terminos" name="terminos" required type="checkbox" class="custom-control-input" id="customCheck1">
+              <label class="custom-control-label" for="customCheck1">Aceptar Terminos y Condiciones</label>
+          </div>
+          <p class="text-danger" *ngIf="pais.invalid && pais.touched">
+              El pais es un campo obligatorio
+            </p>
+
+      </div>
+    </div>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
