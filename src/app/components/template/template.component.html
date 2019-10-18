@@ -3,27 +3,19 @@
 <form (ngSubmit)='send(form)' #form="ngForm">
 
   <div>
-<p class="border border"></p>
+    <p class="border border"></p>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-6">
 
-       <input [ngClass]="{'is-valid':nombre.valid && nombre.dirty,'is-invalid':nombre.invalid && nombre.dirty}"
-               class="form-control"
-               type="text"
-               placeholder="Nombre"
-               name="nombre"
-               [(ngModel)]="dato.nombre"
-               required
-               minlength="5"
-               #nombre="ngModel">
+        <input [ngClass]="{'is-valid':nombre.valid && nombre.dirty,'is-invalid':nombre.invalid && nombre.dirty}"
+          class="form-control" type="text" placeholder="Nombre" name="nombre" [(ngModel)]="dato.nombre" required
+          minlength="5" #nombre="ngModel">
 
-        <p  class="invalid-feedback"
-              *ngIf="!!nombre.errors?.minlength">
-                Se requiere almenos {{nombre.errors['minlength'].requiredLength}} caracteres
+        <p class="invalid-feedback" *ngIf="!!nombre.errors?.minlength">
+          Se requiere almenos {{nombre.errors['minlength'].requiredLength}} caracteres
         </p>
-        <p class="invalid-feedback"
-           *ngIf="!!nombre.errors?.required">
+        <p class="invalid-feedback" *ngIf="!!nombre.errors?.required">
           Este campo es obligatorio
         </p>
       </div>
@@ -33,22 +25,15 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-6">
 
-      <input [ngClass]="{'is-valid':apellido.valid && apellido.dirty,                             'is-invalid':apellido.invalid && apellido.dirty}"
-               class="form-control"
-               type="text"
-               placeholder="Apellido"
-               name="apellido"
-               [(ngModel)]="dato.apellido"
-               required
-               minlength="5"
-               #apellido="ngModel">
+        <input
+          [ngClass]="{'is-valid':apellido.valid && apellido.dirty,                             'is-invalid':apellido.invalid && apellido.dirty}"
+          class="form-control" type="text" placeholder="Apellido" name="apellido" [(ngModel)]="dato.apellido" required
+          minlength="5" #apellido="ngModel">
 
-        <p  class="invalid-feedback"
-            *ngIf="!!apellido.errors?.minlength">
-            Se requiere almenos {{apellido.errors['minlength'].requiredLength}} caracteres
+        <p class="invalid-feedback" *ngIf="!!apellido.errors?.minlength">
+          Se requiere almenos {{apellido.errors['minlength'].requiredLength}} caracteres
         </p>
-        <p class="invalid-feedback"
-           *ngIf="!!apellido.errors?.required">
+        <p class="invalid-feedback" *ngIf="!!apellido.errors?.required">
           Este campo es obligatorio
         </p>
       </div>
@@ -60,40 +45,53 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-6">
 
-    <input [ngClass]="{'is-valid':email.valid && email.dirty,                            'is-invalid':email.invalid && email.dirty}"
-             class="form-control"
-             type="email"
-             placeholder="Correo electrónico"
-             name="email"
-             [(ngModel)]="dato.email"
-             #email="ngModel"
-             required
-             pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
+      <input
+        [ngClass]="{'is-valid':email.valid && email.dirty,                            'is-invalid':email.invalid && email.dirty}"
+        class="form-control"
+        type="email"
+        placeholder="Correo electrónico"
+        name="email"
+        [(ngModel)]="dato.email"
+        #email="ngModel"
+        required
+        pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
 
-        <p  class="invalid-feedback"
-        *ngIf="!!email.errors?.pattern">
-           correo no valido
-        </p>
-        <p class="invalid-feedback"
-           *ngIf="!!email.errors?.required">
-          Este campo es obligatorio
-        </p>
+      <p class="invalid-feedback" *ngIf="!!email.errors?.pattern">
+        correo no valido
+      </p>
+      <p class="invalid-feedback" *ngIf="!!email.errors?.required">
+        Este campo es obligatorio
+      </p>
     </div>
   </div>
 
-
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pais</label>
+    <div class="col-6">
+      <select [ngClass]="{'border border-success':pais.valid && pais.dirty,                                           'border border-danger':pais.invalid && pais.touched}"
+              class="form-control"
+              required
+              [(ngModel)]="dato.pais"
+              name="pais"
+              #pais="ngModel"
+              >
+              <option value="" disabled hidden>Seleccione un pais</option>
+              <option *ngFor="let p of paises">{{p}}</option>
+      </select>
+      <p class="text-danger" *ngIf="pais.invalid && pais.touched">
+        El pais es un campo obligatorio
+      </p>
+    </div>
+  </div>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button [ngClass]="{'btn btn-success': form.valid,'btn btn-danger': form.invalid}"
-             type="submit"
-
-             [disabled]="form.invalid">
+      <button [ngClass]="{'btn btn-success': form.valid,'btn btn-danger': form.invalid}" type="submit"
+        [disabled]="form.invalid">
         Guardar
       </button>
     </div>
   </div>
 
 </form>
-

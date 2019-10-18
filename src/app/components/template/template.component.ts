@@ -9,12 +9,14 @@ import {NgForm} from '@angular/forms';
 })
 export class TemplateComponent  {
   dato: DatosUsuario;
-
+  paises: string[];
   constructor() {
+    this.paises = ['Ecuador', 'España', 'Venezuela'];
     this.dato = {
     nombre : '',
     apellido : '',
-    email : undefined
+    email : '',
+    pais : ''
     };
 
   }
