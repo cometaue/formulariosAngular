@@ -1,16 +1,25 @@
-<h4>Formularios <small>template</small></h4>
+<h4>Formularios <small>Data</small></h4>
 <hr>
-<form>
+<form [formGroup]="formulario" (ngSubmit)="send(formulario)">
 
-  <div>
+  <div formGroupName="nombreCompleto">
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': formulario.get('nombreCompleto.nombre').invalid && formulario.get('nombreCompleto.nombre').touched,'is-valid':formulario.get('nombreCompleto.nombre').valid && formulario.get('nombreCompleto.nombre').touched}"
+               formControlName="nombre"
+               class="form-control"
                type="text"
                placeholder="Nombre">
+
+          <p class="text-danger" *ngIf="!!formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched">
+               este campo es requerido
+          </p>
+          <p class="text-danger" *ngIf="!!formulario.get('nombreCompleto.nombre').errors?.minlength && formulario.get('nombreCompleto.nombre').touched">
+          El minimo de caracteres permitos es {{formulario.get('nombreCompleto.nombre').errors?.minlength['requiredLength']}}
+        </p>
       </div>
     </div>
 
@@ -18,9 +27,18 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': formulario.get('nombreCompleto.apellido').invalid && formulario.get('nombreCompleto.apellido').touched,'is-valid':formulario.get('nombreCompleto.apellido').valid && formulario.get('nombreCompleto.apellido').touched}"
+               formControlName="apellido"
+               class="form-control"
                type="text"
                placeholder="Apellido">
+
+               <p class="text-danger" *ngIf="!!formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched">
+                este campo es requerido
+           </p>
+           <p class="text-danger" *ngIf="!!formulario.get('nombreCompleto.apellido').errors?.minlength && formulario.get('nombreCompleto.apellido').touched">
+           El minimo de caracteres permitos es {{formulario.get('nombreCompleto.apellido').errors?.minlength['requiredLength']}}
+         </p>
       </div>
     </div>
 
@@ -30,10 +48,67 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control"
+      <input [ngClass]="{'is-invalid': formulario.get('correo').invalid && formulario.get('correo').touched,'is-valid':formulario.get('correo').valid && formulario.get('correo').touched}"
+             formControlName="correo"
+             class="form-control"
              type="email"
              placeholder="Correo electrónico">
+
+          <p class="text-danger" *ngIf="formulario.controls['correo'].errors?.required && formulario.get('correo').touched">
+              este campo es requerido
+         </p>
+         <p class="text-danger" *ngIf="formulario.controls['correo'].errors?.pattern && formulario.get('correo').touched">
+             Ingrese un correo válido
+       </p>
     </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">username</label>
+    <div class="col-md-8" >
+      <input formControlName="username"
+             class="form-control"
+             type="text"
+             placeholder="usuario">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label" for="password1">Password</label>
+    <div class="col-md-8" >
+      <input formControlName="password1"
+             class="form-control"
+             type="password">
+    </div>
+  </div>
+  <div class="form-group row">
+      <label class="col-2 col-form-label" for="password2">Confirm Password</label>
+      <div class="col-md-8" >
+        <input [ngClass]="{'is-invalid': formulario.get('password2').invalid && formulario.get('password2').touched,'is-valid':formulario.get('password2').valid && formulario.get('password2').touched}"
+               formControlName="password2"
+               class="form-control"
+               type="password" >
+        <p class="text-danger" *ngIf="formulario.get('password2').invalid && formulario.get('password2').touched">
+          Vuelva a ingresar la contraseña nuevamente
+        </p>
+      </div>
+    </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+
+          <input  *ngFor="let p of formulario.controls['pasatiempos'].controls; let i=index"
+                  [formControlName]="i"
+                  type="text"
+                  class="form-control">
+      </div>
+          <button
+                  (click)='addHobby(pasa.value)'
+                  type="button"
+                  #pasa
+                  class="btn btn-primary mt-5" >
+                  Add Hobby
+          </button>
   </div>
 
 
@@ -46,6 +121,9 @@
       </button>
     </div>
   </div>
+  <p>{{formulario.valid}}</p>
+  <br>
+  <p>{{formulario.status}}</p>
 
 </form>
 
